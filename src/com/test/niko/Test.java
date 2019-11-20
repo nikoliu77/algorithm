@@ -1,5 +1,9 @@
 package com.test.niko;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
 /**
  * Created by nikoliu on 2019/11/18.
  */
@@ -24,6 +28,6 @@ public class Test {
         }
     }
     public static void main(String[] args) {
-        testSort();
+
     }
 }
