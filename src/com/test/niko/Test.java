@@ -243,6 +243,51 @@ public class Test {
         return stack.isEmpty();
     }
 
+    public static int removeElement(int[] nums, int val) {
+        int len = nums.length;
+        for (int i = 0; i < len; ++i) {
+            if (val == nums[i]) {
+                for (int j = i; j < len - 1; ++j) {
+                    nums[j] = nums[j+1];
+                }
+                len--;
+                i--;
+            }
+        }
+        return len;
+    }
+
+    public static int strStr(String haystack, String needle) {
+        if (haystack.length() < needle.length()) {
+            return -1;
+        }
+        if (needle.equals("")) {
+            return 0;
+        }
+        for (int i = 0; i < haystack.length(); i++) {
+            if (haystack.charAt(i) == needle.charAt(0)) {
+                if (i + needle.length() - 1 > haystack.length() - 1) {
+                    return -1;
+                }
+                int start1 = i;
+                int start2 = 0;
+                int end1 = start1 + needle.length() - 1;
+                while (start1 <= end1 && start2 <= needle.length()) {
+                    if (haystack.charAt(start1) == needle.charAt(start2)) {
+                        ++start1;
+                        ++start2;
+                    } else {
+                        break;
+                    }
+                }
+                if (start2 == needle.length()) {
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+
     public static int removeDuplicates(int[] nums) {
         Set<Integer> set = new HashSet<>();
         int len = nums.length;
@@ -303,8 +348,19 @@ public class Test {
         ListNode(int x) { val = x; }
     }
 
+    public static int searchInsert(int[] nums, int target) {
+        int i = 0;
+        while (i < nums.length) {
+            if (target <= nums[i]) {
+                return i;
+            }
+            ++i;
+        }
+        return nums.length;
+    }
+
     public static void main(String[] args) {
-        int arr[] = {0,0,1,1,1,2,2,3,3,4};
-        removeDuplicates(arr);
+        int[] nums = {1,3,5,6};
+        System.out.println(searchInsert(nums, 7));
     }
 }
