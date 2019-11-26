@@ -7,6 +7,9 @@ public class LinkList <T> {
     T value;
     LinkList<T> next;
 
+    public LinkList() {
+    }
+
     public LinkList(T value) {
         this.value = value;
     }

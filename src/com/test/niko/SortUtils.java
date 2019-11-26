@@ -47,4 +47,34 @@ public class SortUtils {
         }
         return arr;
     }
+
+    public static int getNewIndex(int arr[], int start, int end) {
+        int tmp = arr[start];
+        while (start < end) {
+            while (end > start && arr[end] > tmp) {
+                --end;
+            }
+            if (start < end) {
+                arr[start] = arr[end];
+                start++;
+            }
+            while (start < end && arr[start] < tmp) {
+                start++;
+            }
+            if (start < end) {
+                arr[end] = arr[start];
+                end--;
+            }
+        }
+        arr[start] = tmp;
+        return start;
+    }
+
+    public static void quickSort(int arr[], int start, int end) {
+        if (start < end) {
+            int index = getNewIndex(arr, start, end);
+            quickSort(arr, 0, index - 1);
+            quickSort(arr, index + 1, end);
+        }
+    }
 }
