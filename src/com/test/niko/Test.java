@@ -318,7 +318,45 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        int[] nums = {1,3,5,6};
-        System.out.println(searchInsert(nums, 7));
+        int[] nums = {1, 3, 2, 4, 5, 8, 7, 6, 9};
+        quickSort(nums, 0, nums.length - 1);
+        for (int num : nums) {
+            System.out.println(num);
+        }
+    }
+
+    public static int[] quickSort(int arr[], int start, int end) {
+        if (start >= end) {
+            return arr;
+        }
+        int index = computePosition(arr, start, end);
+        quickSort(arr, 0, index -1);
+        quickSort(arr, index + 1, end);
+        return arr;
+    }
+
+    public static int computePosition(int arr[], int start, int end) {
+        int temp = arr[start];
+        while (start < end) {
+            while (start < end && arr[end] > temp) {
+                end--;
+            }
+
+            if (start < end) {
+                arr[start] = arr[end];
+                start++;
+            }
+
+            while (start < end && arr[start] < temp) {
+                start++;
+            }
+
+            if (start < end) {
+                arr[end] = arr[start];
+                end--;
+            }
+        }
+        arr[start] = temp;
+        return start;
     }
 }
