@@ -2,6 +2,8 @@ package com.test.niko;
 
 import sun.misc.Unsafe;
 
+import java.util.Stack;
+
 /**
  * Created by nikoliu on 2019/11/19.
  */
@@ -50,13 +52,111 @@ public class Algorithm {
         return c;
     }
 
-    public static void main(String[] args) {
-        int a[] = {1, 2, 3};
-        int b[] = {4, 5, 6};
-        int c[] = mergeArr(a, b);
-        for (int x : c) {
-            System.out.println(x);
+    //括号正确性
+    public static boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        for (char i : s.toCharArray()) {
+            if (i == '[' || i == '{' || i == '(') {
+                stack.push(i);
+            } else {
+                if (stack.isEmpty()) {
+                    return false;
+                }
+                char top = stack.peek();
+                if (i == ']' && top == '['){
+                    stack.pop();
+                }
+                else if (i == '}' && top == '{'){
+                    stack.pop();
+                }
+                else if (i == ')' && top == '('){
+                    stack.pop();
+                } else {
+                    return false;
+                }
+            }
         }
-        System.out.println(Unsafe.getUnsafe().arrayBaseOffset(c.getClass()));
+        return stack.isEmpty();
+    }
+
+    //是否回文数字
+    public static boolean isPalindrome(int num) {
+        if (num < 0) {
+            return false;
+        }
+        String str = num + "";
+        int i = 0;
+        int j = str.length() - 1;
+        int end = (str.length() - 1)/2;
+        while (i <= end && j >= end) {
+            char a = str.charAt(i);
+            char b = str.charAt(j);
+            if (a != b) {
+                return false;
+            }
+            --j;
+            ++i;
+        }
+        return true;
+    }
+
+    public static int findMaxValueArr(int nums[]) {
+        int value = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            int start = nums[i];
+            if (value < start) {
+                value = start;
+            }
+            for (int j = i + 1; j < nums.length; j++) {
+                start += nums[j];
+                if (value < start) {
+                    value = start;
+                }
+            }
+        }
+        return value;
+    }
+
+    public static int findMaxValueArr1(int nums[]) {
+        int value = nums[0];
+        int res = 0;
+        for (int i = 0; i < nums.length; i++) {
+            res += nums[i];
+            if (res > value) {
+                value = res;
+            }
+            if (res < 0) {
+                res = 0;
+            }
+        }
+        return value;
+    }
+
+    public static int lengthOfLastWord(String s) {
+        int i = s.length() - 1;
+        int count = 0;
+        if (s.equals(" ") || s.equals("")) {
+            return count;
+        }
+        while (i >= 0) {
+            if (s.charAt(i) == ' ') {
+                i--;
+                continue;
+            }
+            break;
+        }
+        while (i >= 0) {
+            if (s.charAt(i) != ' '){
+                count++;
+                --i;
+            } else {
+                break;
+            }
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(lengthOfLastWord("Hello World"));
     }
 }

@@ -164,26 +164,6 @@ public class Test {
         return (int) res;
     }
 
-    public static boolean isPalindrome(int num) {
-        if (num < 0) {
-            return false;
-        }
-        String str = num + "";
-        int i = 0;
-        int j = str.length() - 1;
-        int end = (str.length() - 1)/2;
-        while (i <= end && j >= end) {
-            char a = str.charAt(i);
-            char b = str.charAt(j);
-            if (a != b) {
-                return false;
-            }
-            --j;
-            ++i;
-        }
-        return true;
-    }
-
     public static int strToInt(String str) {
         int len = str.length() - 1;
         int count = 1;
@@ -198,6 +178,7 @@ public class Test {
         return res;
     }
 
+    //最长公共前缀
     public static String longestCommonPrefix(String[] strs) {
         String res = "";
         if (strs.length == 0) {
@@ -217,32 +198,7 @@ public class Test {
         return res;
     }
 
-    public static boolean isValid(String s) {
-        Stack<Character> stack = new Stack<>();
-        for (char i : s.toCharArray()) {
-            if (i == '[' || i == '{' || i == '(') {
-                stack.push(i);
-            } else {
-                if (stack.isEmpty()) {
-                    return false;
-                }
-                char top = stack.peek();
-                if (i == ']' && top == '['){
-                    stack.pop();
-                }
-                else if (i == '}' && top == '{'){
-                    stack.pop();
-                }
-                else if (i == ')' && top == '('){
-                    stack.pop();
-                } else {
-                    return false;
-                }
-            }
-        }
-        return stack.isEmpty();
-    }
-
+    //移除指定元素
     public static int removeElement(int[] nums, int val) {
         int len = nums.length;
         for (int i = 0; i < len; ++i) {
@@ -257,6 +213,7 @@ public class Test {
         return len;
     }
 
+    //判断字符串包含
     public static int strStr(String haystack, String needle) {
         if (haystack.length() < needle.length()) {
             return -1;
@@ -288,6 +245,7 @@ public class Test {
         return -1;
     }
 
+    //移除重复元素
     public static int removeDuplicates(int[] nums) {
         Set<Integer> set = new HashSet<>();
         int len = nums.length;
