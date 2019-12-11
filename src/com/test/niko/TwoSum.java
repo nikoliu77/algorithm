@@ -1,5 +1,10 @@
 package com.test.niko;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
+import java.util.zip.Adler32;
+
 /**
  * Created by nikoliu on 2019/11/19.
  */
@@ -24,11 +29,88 @@ public class TwoSum {
         return arr;
     }
 
-    public static void main(String[] args) {
-        int arr[] = {2, 7, 11, 15};
-        int res[] = twoSum(arr, 9);
-        for (int i : res) {
-            System.out.println(i);
+    public static int[] plusOne(int[] digits) {
+        if (digits[digits.length - 1] != 9) {
+            digits[digits.length - 1] += 1;
+            return digits;
         }
+        int []res = digits;
+        if (digits[0] == 9) {
+            res = new int[digits.length + 1];
+            res[0] = 0;
+            for (int i = 0; i < digits.length; i++) {
+                res[i+1] = digits[i];
+            }
+        }
+        int add = 1;
+        for (int i = res.length - 1; i >= 0; --i) {
+            res[i] += add;
+            if (res[i] > 9) {
+                add = 1;
+                res[i] -= 10;
+                continue;
+            } else {
+                return res;
+            }
+        }
+        return res;
+     }
+
+    public static String addBinary(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+        int indexA = a.length();
+        int indexB = b.length();
+        int add = 0;
+        while (indexA > 0 && indexB > 0) {
+            --indexA;
+            --indexB;
+            int aValue = a.charAt(indexA) - '0';
+            int bValue = b.charAt(indexB) - '0';
+            int temp = aValue + bValue + add;
+            add = temp > 1 ? 1 : 0;
+            if (add == 0) {
+                sb.append(temp);
+            } else {
+                sb.append(temp - 2);
+            }
+        }
+        while (indexA > 0) {
+            --indexA;
+            int aValue = a.charAt(indexA) - '0';
+            int temp = aValue + add;
+            add = temp > 1 ? 1 : 0;
+            if (add == 0) {
+                sb.append(temp);
+            } else {
+                sb.append(temp - 2);
+            }
+        }
+        while (indexB > 0) {
+            --indexB;
+            int bValue = b.charAt(indexB) - '0';
+            int temp = bValue + add;
+            add = temp > 1 ? 1 : 0;
+            if (add == 0) {
+                sb.append(temp);
+            } else {
+                sb.append(temp - 2);
+            }
+        }
+        if (add == 1) {
+            sb.append(add);
+        }
+        return sb.reverse().toString();
+    }
+
+    public static int mySqrt(int x) {
+        int i = 0;
+        while (i * i < x/2) {
+            ++i;
+        }
+        return i;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(mySqrt(9));
     }
 }
