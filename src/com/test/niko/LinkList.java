@@ -34,9 +34,9 @@ public class LinkList <T> {
         LinkList head = this;
         LinkList pre = null;
         while (head != null) {
-            LinkList current = head;
-            current.next = pre;
-            pre = current;
+            LinkList cur = head;
+            cur.next = pre;
+            pre = cur;
             head = head.next;
         }
         return pre;

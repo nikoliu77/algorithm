@@ -1,7 +1,6 @@
 package com.test.niko;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.*;
 import java.util.zip.Adler32;
 
@@ -103,14 +102,73 @@ public class TwoSum {
     }
 
     public static int mySqrt(int x) {
-        int i = 0;
-        while (i * i < x/2) {
+        int i = 1;
+        while (i < x/i) {
             ++i;
         }
-        return i;
+        if (i == x/i) {
+            return i;
+        }
+        return --i;
     }
 
+    public static int climbStairs(int n) {
+        Map<Integer, Integer> map = new HashMap<>();
+        return function(n, map);
+    }
+
+    public static int function(int n, Map<Integer, Integer> map) {
+        if (n == 1) {
+            map.put(1, 1);
+            return 1;
+        }
+        if (n == 2) {
+            map.put(2, 2);
+            return 2;
+        }
+        if (map.get(n - 1) == null && map.get(n - 2) == null) {
+            map.put(n - 1, function(n - 1, map));
+            map.put(n - 2, function(n - 2, map));
+        }
+        return map.get(n - 1) + map.get(n - 2);
+    }
+
+    public static class ListNode {
+        int val;
+        ListNode next;
+        ListNode(int x) { val = x; }
+    }
+
+    public static ListNode deleteDuplicates(ListNode head) {
+        if (head == null) {
+            return head;
+        }
+        Set<Integer> set = new HashSet();
+        ListNode tmp = head;
+        set.add(head.val);
+        while (tmp.next != null) {
+            ListNode next = tmp.next;
+            if (!set.contains(next.val)) {
+                set.add(next.val);
+                tmp = tmp.next;
+            } else {
+                tmp.next = next.next;
+            }
+        }
+        return head;
+    }
+
+
     public static void main(String[] args) {
-        System.out.println(mySqrt(9));
+        ListNode listNode = new ListNode(1);
+        listNode.next = new ListNode(1);
+        listNode.next.next = new ListNode(2);
+        listNode.next.next.next = new ListNode(3);
+        listNode.next.next.next.next = new ListNode(3);
+        listNode = deleteDuplicates(listNode);
+        while (listNode != null) {
+            System.out.println(listNode.val);
+            listNode = listNode.next;
+        }
     }
 }

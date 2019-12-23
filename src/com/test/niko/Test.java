@@ -1,8 +1,10 @@
 package com.test.niko;
 
+import java.io.*;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -317,11 +319,28 @@ public class Test {
         return nums.length;
     }
 
-    public static void main(String[] args) {
-        int[] nums = {1, 3, 2, 4, 5, 8, 7, 6, 9};
-        quickSort(nums, 0, nums.length - 1);
-        for (int num : nums) {
-            System.out.println(num);
+    public static void main(String[] args) throws IOException {
+        File file = new File("/Users/liuchenhui/workspace/algorithm/algorithm/src/com/test/niko/in.txt");
+        FileInputStream fileInputStream = null;
+        FileOutputStream fileOutputStream = null;
+        try {
+            fileInputStream = new FileInputStream(file);
+            byte[] bytes = new byte[1024 * 1024];
+            int res = 0;
+            int i = 0;
+            while ((res = fileInputStream.read(bytes)) != -1) {
+                String fileName = "/Users/liuchenhui/workspace/algorithm/algorithm/src/com/test/niko/in_" + i + ".txt";
+                File spFile = new File(fileName);
+                fileOutputStream = new FileOutputStream(spFile);
+                fileOutputStream.write(bytes);
+                fileOutputStream.flush();
+                ++i;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            fileInputStream.close();
+            fileOutputStream.close();
         }
     }
 

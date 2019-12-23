@@ -100,37 +100,9 @@ public class Algorithm {
         return true;
     }
 
-    public static int findMaxValueArr(int nums[]) {
-        int value = Integer.MIN_VALUE;
-        for (int i = 0; i < nums.length; i++) {
-            int start = nums[i];
-            if (value < start) {
-                value = start;
-            }
-            for (int j = i + 1; j < nums.length; j++) {
-                start += nums[j];
-                if (value < start) {
-                    value = start;
-                }
-            }
-        }
-        return value;
-    }
 
-    public static int findMaxValueArr1(int nums[]) {
-        int value = nums[0];
-        int res = 0;
-        for (int i = 0; i < nums.length; i++) {
-            res += nums[i];
-            if (res > value) {
-                value = res;
-            }
-            if (res < 0) {
-                res = 0;
-            }
-        }
-        return value;
-    }
+
+
 
     public static int lengthOfLastWord(String s) {
         int i = s.length() - 1;
